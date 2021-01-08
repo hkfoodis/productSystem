@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: zuul
+
+server:
+  port: 9999
+  
+zuul:
+  routes:
+   productService:
+      path: /product
+      serviceId: PRODUCT-SERVICE
+      stripPrefix: false
+      retryable: true
+     
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://ec2-15-165-93-6.ap-northeast-2.compute.amazonaws.com:8080/eureka/
+    healthcheck:
+      enabled: true
+
+productService:
+  ribbon:
+    MaxAutoRetries: 1
+    MaxAutoRetriesNextServer: 1
+    OkToRetryOnAllOperations: true
+    ConnectTimeout: 3000
+    ReadTimeout: 5000
+      
