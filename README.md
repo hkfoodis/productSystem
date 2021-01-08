@@ -6,3 +6,4 @@
 - WebService, ProductService, Zuul, Eureka: Java Spring
 
 ## 서비스 구조
+<img src = "https://user-images.githubusercontent.com/43229125/103991343-dd713580-51d5-11eb-99f6-870fcf55980c.png" />
