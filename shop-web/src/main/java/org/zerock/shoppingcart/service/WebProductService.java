@@ -46,6 +46,18 @@ public class WebProductService {
 		return results;
 	}
 	
+	public ProductInfo product() {
+		ProductInfo productResult = null;
+		
+		productResult = restTemplate.getForObject(serviceUrl + "/product/{product_code}", ProductInfo.class);
+		
+		return productResult;
+	}
+	
+	public void deleteProduct() {
+		restTemplate.delete(serviceUrl + "/product/{product_code}");
+	}
+	
 	public String add(String addend1, String addend2) {
 		return restTemplate.getForObject(serviceUrl + "/add?addend1={addend1}&addend2={addend2}", String.class, addend1, addend2);
 	}

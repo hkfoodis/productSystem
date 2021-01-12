@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.zerock.shoppingcart.repository.ProductRepository;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.shoppingcart.pagination.PaginationResult;
 import org.zerock.shoppingcart.model.ProductInfo;
 
@@ -32,7 +35,7 @@ public class MainController {
 	   System.out.println("Target=" + target); 
 	}
 	
-	@RequestMapping("/productList")
+	@RequestMapping(value = "/productllist", method = RequestMethod.GET)
 	public List<ProductInfo> listProductHandler(){
 				
 		String likeName = " ";
@@ -41,7 +44,27 @@ public class MainController {
 		return productlist;
 	}
 	
-	@RequestMapping("/add")
+	@RequestMapping(value = "/product/{product_code}", method = RequestMethod.GET)
+	public @ResponseBody Product Productfind(@PathVariable String product_code) {
+		
+		Product productResult = productRepository.findProduct(product_code);
+		
+		return productResult;
+	}
+	
+	@RequestMapping(value = "/product/{product_code}", method = RequestMethod.DELETE)
+	public @ResponseBody void ProductDelete(@PathVariable String product_code) {
+		
+		productRepository.delete(product_code);
+	}
+	
+	@RequestMapping(value = "/product/{product_code}", method = RequestMethod.POST)
+	public @ResponseBody void ProductSave(@PathVariable String product_code) {
+		
+		
+	}
+	
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String doAdd(@RequestParam(defaultValue="0") String addend1,
 			@RequestParam(defaultValue="0") String addend2) {
 

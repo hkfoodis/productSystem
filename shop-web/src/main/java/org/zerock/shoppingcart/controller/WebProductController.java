@@ -13,9 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Transactional
@@ -82,7 +84,7 @@ public class WebProductController {
 	   return "productList";
 	}*/
 	
-	@RequestMapping({ "/productList" })
+	@RequestMapping({ "/productlist" })
 	public String listProductHandler(Model model) {    
 		/*final int maxResult = 5;
 	    final int maxNavigationPage = 10;*/
@@ -90,5 +92,27 @@ public class WebProductController {
 	 		
 	    model.addAttribute("paginationProducts", result);
 		return "productList";
+	}
+	
+	@RequestMapping(value = "/product/{product_code}", method = RequestMethod.GET)
+	public @ResponseBody String Product(@PathVariable String product_code, Model model) {
+		ProductInfo result = null;
+		
+		result = webproductService.product();
+		model.addAttribute("paginationProducts", result);
+		
+		return "productList";
+	}
+	
+	@RequestMapping(value = "/product/{product_code}", method = RequestMethod.POST)
+	public @ResponseBody void saveProduct(@PathVariable String product_code) {
+		
+		
+	}
+	
+	@RequestMapping(value = "/product/{product_code}", method = RequestMethod.DELETE)
+	public @ResponseBody void productdelete(@PathVariable String product_code) {
+		
+		webproductService.deleteProduct();
 	}
 }
